@@ -141,13 +141,11 @@ class DFPExternalStorage(Document):
 					key_secret = get_decrypted_password("DFP External Storage", self.name, "secret_key") if self.name else None
 				else:
 					key_secret = None
+
 				secret_key = key_secret or \
 					os.getenv("AWS_SECRET_ACCESS_KEY") or \
 					os.getenv("MINIO_SECRET_KEY") or \
 					os.getenv("MINIO_ROOT_PASSWORD")
-
-				# print all credentials for temp debug purposes
-				print(f"---------> All creds for {self.name}: {access_key} {secret_key}")
 
 				if access_key and secret_key:
 					return MinioConnection(
