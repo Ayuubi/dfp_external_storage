@@ -57,7 +57,7 @@ class S3FileProxy:
 
 	def tell(self):
 		return self.offset
-	
+
 	def read(self, size=0):
 		content = self.readFn(self.offset, size)
 		self.offset = self.offset + len(content)
@@ -137,12 +137,17 @@ class DFPExternalStorage(Document):
 				# Resolve secret key
 				if self.is_new() and self.secret_key:
 					key_secret = self.secret_key
-				else:
+				elif self.secret_key:
 					key_secret = get_decrypted_password("DFP External Storage", self.name, "secret_key") if self.name else None
+				else:
+					key_secret = None
 				secret_key = key_secret or \
 					os.getenv("AWS_SECRET_ACCESS_KEY") or \
 					os.getenv("MINIO_SECRET_KEY") or \
 					os.getenv("MINIO_ROOT_PASSWORD")
+
+				# print all credentials for temp debug purposes
+				print(f"---------> All creds for {self.name}: {access_key} {secret_key}")
 
 				if access_key and secret_key:
 					return MinioConnection(
