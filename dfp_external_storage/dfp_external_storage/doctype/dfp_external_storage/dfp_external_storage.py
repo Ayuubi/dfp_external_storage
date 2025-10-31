@@ -694,11 +694,14 @@ def file(name:str, file:str):
 	if not response_values:
 		try:
 			doc = frappe.get_doc("File", name)
-			if not doc or not doc.is_downloadable() or doc.file_name != file:
-				raise Exception("File not available")
-		except Exception:
-			# If no document, no read permissions, etc. For security reasons do not give any information, so just raise a 404 error
+		except frappe.DoesNotExistError:
 			raise frappe.PageDoesNotExistError()
+
+		if doc.file_name != file:
+			raise frappe.PageDoesNotExistError()
+
+		if not doc.is_downloadable():
+			raise frappe.PermissionError()
 
 		response_values = {}
 		response_values["headers"] = []
