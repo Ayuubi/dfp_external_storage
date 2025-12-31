@@ -210,3 +210,7 @@ bench remove-app {app}
 #### License
 
 MIT
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=developmentforpeople/dfp_external_storage&type=date&legend=bottom-right)](https://www.star-history.com/#developmentforpeople/dfp_external_storage&type=date&legend=bottom-right)
