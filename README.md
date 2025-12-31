@@ -207,7 +207,7 @@ bench remove-app {app}
 
 - cloud storage by Iconstock from [Noun Project](https://thenounproject.com/browse/icons/term/cloud-storage/)
 
-#### License
+## License
 
 MIT
 
